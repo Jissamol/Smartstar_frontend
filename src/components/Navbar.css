@@ -1,0 +1,60 @@
+/* Navbar General Styling */
+.custom-navbar {
+    background-color: #2a2e42 !important;
+    padding: 15px 20px;
+  }
+  
+  .logo {
+    color: white !important;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navbar-light .navbar-nav .nav-link,
+  .navbar-light .navbar-brand {
+    color: white !important;
+  }
+  
+  .navbar-light .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .navbar-light .navbar-toggler-icon {
+    filter: invert(1);
+  }
+  
+  /* Dropdown Custom Styling */
+  .navbar-light .dropdown-menu {
+    background-color: #2a2e42;
+    border: none;
+  }
+  
+  .navbar-light .dropdown-item {
+    color: white !important;
+  }
+  
+  .navbar-light .dropdown-item:hover {
+    background-color: #007bff !important;
+  }
+  
+  /* Search Bar */
+  .form-control {
+    width: 180px;
+  }
+  
+  /* ✅ Mobile-Friendly Adjustments */
+  @media screen and (max-width: 768px) {
+    .custom-navbar {
+      text-align: center;
+      padding: 10px;
+    }
+  
+    .navbar-collapse {
+      text-align: left;
+    }
+  
+    .form-control {
+      width: 100%;
+    }
+  }
+  
