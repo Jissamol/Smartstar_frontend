@@ -1,60 +1,57 @@
-/* Navbar General Styling */
-.custom-navbar {
-    background-color: #2a2e42 !important;
-    padding: 15px 20px;
+/* Navbar.css */
+
+.navbar {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  padding: 15px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo a {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logo a:hover {
+  color: #ffdd57;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #ffdd57;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    text-align: center;
   }
-  
-  .logo {
-    color: white !important;
-    font-size: 24px;
-    font-weight: bold;
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  .navbar-light .navbar-nav .nav-link,
-  .navbar-light .navbar-brand {
-    color: white !important;
-  }
-  
-  .navbar-light .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.5);
-  }
-  
-  .navbar-light .navbar-toggler-icon {
-    filter: invert(1);
-  }
-  
-  /* Dropdown Custom Styling */
-  .navbar-light .dropdown-menu {
-    background-color: #2a2e42;
-    border: none;
-  }
-  
-  .navbar-light .dropdown-item {
-    color: white !important;
-  }
-  
-  .navbar-light .dropdown-item:hover {
-    background-color: #007bff !important;
-  }
-  
-  /* Search Bar */
-  .form-control {
-    width: 180px;
-  }
-  
-  /* ✅ Mobile-Friendly Adjustments */
-  @media screen and (max-width: 768px) {
-    .custom-navbar {
-      text-align: center;
-      padding: 10px;
-    }
-  
-    .navbar-collapse {
-      text-align: left;
-    }
-  
-    .form-control {
-      width: 100%;
-    }
-  }
-  
+}

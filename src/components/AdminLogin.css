@@ -1,0 +1,150 @@
+/* Admin Login Page Styling */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+}
+
+.auth-box {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin: 0 0 8px 0;
+}
+
+.auth-header p {
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 14px;
+}
+
+.auth-error {
+    background-color: #fff5f5;
+    color: #c53030;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-icon {
+    font-size: 18px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.form-group input:disabled {
+    background-color: #f7fafc;
+    cursor: not-allowed;
+}
+
+.auth-button {
+    background-color: #4299e1;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 1rem;
+}
+
+.auth-button:hover:not(:disabled) {
+    background-color: #3182ce;
+}
+
+.auth-button:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+}
+
+.auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.5rem;
+}
+
+.auth-footer p {
+    color: #4a5568;
+    margin: 0 0 8px 0;
+    font-size: 14px;
+}
+
+.auth-footer small {
+    color: #a0aec0;
+    font-size: 12px;
+}
+
+@media (max-width: 480px) {
+    .auth-box {
+        padding: 1.5rem;
+    }
+
+    .auth-header h1 {
+        font-size: 20px;
+    }
+
+    .auth-form {
+        gap: 1rem;
+    }
+
+    .form-group input {
+        padding: 8px 10px;
+    }
+
+    .auth-button {
+        padding: 10px;
+    }
+}
