@@ -22,12 +22,12 @@ const TeacherRegister = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
 
     const departments = [
-        { value: "commerce", label: "Commerce" },
-        { value: "computer_applications", label: "Computer Applications" },
-        { value: "social_work", label: "Social Work" },
-        { value: "communication_media", label: "Communication and Media Studies" },
-        { value: "applied_economics", label: "Applied Economics" },
-        { value: "business_admin", label: "Business Administration" }
+        { value: "computer_science", label: "Computer Science" },
+        { value: "electronics", label: "Electronics" },
+        { value: "mechanical", label: "Mechanical" },
+        { value: "civil", label: "Civil" },
+        { value: "electrical", label: "Electrical" },
+        { value: "communication_media", label: "Communication Media" }
     ];
 
     // Handle input changes

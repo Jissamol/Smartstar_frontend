@@ -13,6 +13,9 @@ import AdminDashboard from "./components/AdminDashboard";
 import PendingTeachers from "./components/PendingTeachers";
 import TeacherDashboard from "./components/TeacherDashboard";
 import TeacherProfile from "./components/TeacherProfile";
+import TeacherProfileEdit from "./components/TeacherProfileEdit";
+import TeacherStudents from './components/TeacherStudents';
+import StudentDashboard from './components/StudentDashboard';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
         <Route path="/pending-teachers" element={<PendingTeachers />} />
         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route path="/teacher/profile" element={<TeacherProfile />} />
+        <Route path="/teacher/profile/edit" element={<TeacherProfileEdit />} />
+        <Route path="/teacher/students" element={<TeacherStudents />} />
+        <Route path="/student/dashboard" element={<StudentDashboard />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from './Sidebar';
 import axios from 'axios';
 import { 
     FaUser, FaEnvelope, FaGraduationCap, FaBriefcase, FaBook, FaBuilding, 
-    FaPhone 
+    FaPhone, FaEdit, FaArrowLeft
 } from 'react-icons/fa';
 
 const TeacherProfile = () => {
@@ -11,7 +12,7 @@ const TeacherProfile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [profileImage, setProfileImage] = useState(null);
-    const navigate = useNavigate(); // Hook for navigation
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTeacherData = async () => {
@@ -37,78 +38,295 @@ const TeacherProfile = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div style={loadingContainerStyle}>
+                <div style={loadingSpinnerStyle}></div>
+                <p>Loading profile data...</p>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="p-4 bg-red-50 text-red-600 rounded-lg text-center">
-                <p>{error}</p>
+            <div style={errorContainerStyle}>
+                <p style={errorTextStyle}>{error}</p>
             </div>
         );
     }
 
     const InfoItem = ({ icon: Icon, label, value }) => (
-        <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg shadow-sm">
-            <Icon className="w-5 h-5 text-blue-600" />
+        <div style={infoItemStyle}>
+            <Icon style={infoIconStyle} />
             <div>
-                <p className="text-sm text-gray-500">{label}</p>
-                <p className="text-gray-800 font-medium">{value || 'Not provided'}</p>
+                <p style={infoLabelStyle}>{label}</p>
+                <p style={infoValueStyle}>{value || 'Not provided'}</p>
             </div>
         </div>
     );
 
     return (
-        <div className="max-w-4xl mx-auto p-6 flex flex-col items-center">
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden w-full p-6 flex flex-col md:flex-row items-center md:items-start">
-                {/* Profile Picture */}
-                <div className="flex flex-col items-center md:items-start md:w-1/3">
-                    {profileImage ? (
-                        <img src={profileImage} alt="Profile" className="w-40 h-40 rounded-full border-4 border-white shadow-lg object-cover" />
-                    ) : (
-                        <div className="w-40 h-40 rounded-full border-4 border-white shadow-lg bg-gray-200 flex items-center justify-center">
-                            <FaUser className="w-16 h-16 text-gray-400" />
-                        </div>
-                    )}
-                    <h1 className="mt-4 text-2xl font-bold text-gray-900 text-center md:text-left">
-                        {teacherData?.first_name} {teacherData?.last_name}
-                    </h1>
-                </div>
-
-                {/* Profile Details */}
-                <div className="flex-1 md:ml-8 mt-6 md:mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div className="space-y-4" style={{ marginLeft: 650, marginTop: -352 }}>
-                            <h2 className="text-lg font-semibold text-gray-900">Personal Information</h2>
-                            <InfoItem icon={FaEnvelope} label="Email" value={teacherData?.email} />
-                            <InfoItem icon={FaPhone} label="Phone" value={teacherData?.contact_number} />
-                        </div>
-                        <div className="space-y-4" style={{ marginLeft: 1080, marginTop: -285 }}>
-                            <h2 className="text-lg font-semibold text-gray-900">Additional Information</h2>
-                            <InfoItem icon={FaGraduationCap} label="Qualification" value={teacherData?.qualification} />
-                            <InfoItem icon={FaBook} label="Subject" value={teacherData?.subject} />
-                            <InfoItem icon={FaBriefcase} label="Experience" value={`${teacherData?.experience} years`} />
-                            <InfoItem icon={FaBuilding} label="Department" value={teacherData?.department} />
-                        </div>
-                    </div>
-
-                    {/* Back to Dashboard Button */}
-                    <div className="mt-6 text-center">
+        <div style={containerStyle}>
+            <div style={profileCardStyle}>
+                {/* Header with Back Button */}
+                <div style={headerStyle}>
                     <button 
                         onClick={() => navigate('/teacher/dashboard')} 
-                        className="px-6 py-2 bg-blue-600 text-black font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+                        style={backButtonStyle}
                     >
+                        <FaArrowLeft style={{ marginRight: '8px' }} />
                         Back to Dashboard
                     </button>
+                </div>
 
+                {/* Profile Content */}
+                <div style={contentContainerStyle}>
+                    {/* Left Column - Profile Picture and Basic Info */}
+                    <div style={leftColumnStyle}>
+                        <div style={profileImageContainerStyle}>
+                            {profileImage ? (
+                                <img 
+                                    src={profileImage} 
+                                    alt="Profile" 
+                                    style={profileImageStyle}
+                                />
+                            ) : (
+                                <div style={defaultProfileImageStyle}>
+                                    <FaUser style={defaultProfileIconStyle} />
+                                </div>
+                            )}
+                        </div>
+                        <h1 style={nameStyle}>
+                            {teacherData?.first_name} {teacherData?.last_name}
+                        </h1>
+                        <button 
+                            onClick={() => navigate('/teacher/profile/edit')} 
+                            style={editButtonStyle}
+                        >
+                            <FaEdit style={{ marginRight: '8px' }} />
+                            Edit Profile
+                        </button>
+                    </div>
+
+                    {/* Right Column - Detailed Information */}
+                    <div style={rightColumnStyle}>
+                        <div style={sectionStyle}>
+                            <h2 style={sectionTitleStyle}>Personal Information</h2>
+                            <div style={infoGridStyle}>
+                                <InfoItem icon={FaEnvelope} label="Email" value={teacherData?.email} />
+                                <InfoItem icon={FaPhone} label="Phone" value={teacherData?.contact_number} />
+                            </div>
+                        </div>
+
+                        <div style={sectionStyle}>
+                            <h2 style={sectionTitleStyle}>Professional Information</h2>
+                            <div style={infoGridStyle}>
+                                <InfoItem icon={FaGraduationCap} label="Qualification" value={teacherData?.qualification} />
+                                <InfoItem icon={FaBook} label="Subject" value={teacherData?.subject} />
+                                <InfoItem icon={FaBriefcase} label="Experience" value={`${teacherData?.experience} years`} />
+                                <InfoItem icon={FaBuilding} label="Department" value={teacherData?.department} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     );
+};
+
+// Styles
+const containerStyle = {
+    minHeight: '100vh',
+    backgroundColor: '#f5f7fa',
+    padding: '2rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+};
+
+const profileCardStyle = {
+    width: '100%',
+    maxWidth: '1200px',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    overflow: 'hidden'
+};
+
+const headerStyle = {
+    padding: '1.5rem',
+    borderBottom: '1px solid #e5e7eb',
+    display: 'flex',
+    justifyContent: 'flex-start'
+};
+
+const backButtonStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0.5rem 1rem',
+    backgroundColor: '#f3f4f6',
+    color: '#374151',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    fontSize: '0.9rem',
+    fontWeight: '500'
+};
+
+const contentContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: '2rem',
+    gap: '2rem'
+};
+
+const leftColumnStyle = {
+    flex: '0 0 300px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '1rem'
+};
+
+const rightColumnStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '2rem'
+};
+
+const profileImageContainerStyle = {
+    marginBottom: '1.5rem'
+};
+
+const profileImageStyle = {
+    width: '200px',
+    height: '200px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+    border: '4px solid #ffffff',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+};
+
+const defaultProfileImageStyle = {
+    width: '200px',
+    height: '200px',
+    borderRadius: '50%',
+    backgroundColor: '#f3f4f6',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '4px solid #ffffff',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+};
+
+const defaultProfileIconStyle = {
+    width: '80px',
+    height: '80px',
+    color: '#9ca3af'
+};
+
+const nameStyle = {
+    fontSize: '1.5rem',
+    fontWeight: '600',
+    color: '#1f2937',
+    marginBottom: '1.5rem',
+    textAlign: 'center'
+};
+
+const editButtonStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0.75rem 1.5rem',
+    backgroundColor: '#3b82f6',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    fontSize: '0.9rem',
+    fontWeight: '500'
+};
+
+const sectionStyle = {
+    backgroundColor: '#ffffff',
+    borderRadius: '8px',
+    padding: '1.5rem',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
+};
+
+const sectionTitleStyle = {
+    fontSize: '1.25rem',
+    fontWeight: '600',
+    color: '#1f2937',
+    marginBottom: '1.5rem'
+};
+
+const infoGridStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '1rem'
+};
+
+const infoItemStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+    padding: '1rem',
+    backgroundColor: '#f9fafb',
+    borderRadius: '6px',
+    transition: 'background-color 0.3s ease'
+};
+
+const infoIconStyle = {
+    width: '20px',
+    height: '20px',
+    color: '#3b82f6'
+};
+
+const infoLabelStyle = {
+    fontSize: '0.875rem',
+    color: '#6b7280',
+    marginBottom: '0.25rem'
+};
+
+const infoValueStyle = {
+    fontSize: '1rem',
+    color: '#1f2937',
+    fontWeight: '500'
+};
+
+const loadingContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    backgroundColor: '#f5f7fa'
+};
+
+const loadingSpinnerStyle = {
+    width: '50px',
+    height: '50px',
+    border: '5px solid #f3f4f6',
+    borderTop: '5px solid #3b82f6',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '1rem'
+};
+
+const errorContainerStyle = {
+    padding: '1.5rem',
+    backgroundColor: '#fee2e2',
+    borderRadius: '8px',
+    textAlign: 'center',
+    margin: '2rem auto',
+    maxWidth: '600px'
+};
+
+const errorTextStyle = {
+    color: '#dc2626',
+    fontSize: '1rem',
+    fontWeight: '500'
 };
 
 export default TeacherProfile;

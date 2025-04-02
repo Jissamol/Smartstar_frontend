@@ -16,12 +16,12 @@ const PendingTeachers = () => {
   // Memoize department mapping to prevent re-creation
   const departmentLabels = useMemo(
     () => ({
-      commerce: "Commerce",
-      computer_applications: "Computer Applications",
-      social_work: "Social Work",
-      communication_media: "Communication and Media Studies",
-      applied_economics: "Applied Economics",
-      business_admin: "Business Administration",
+      computer_science: "Computer Science",
+      electronics: "Electronics",
+      mechanical: "Mechanical",
+      civil: "Civil",
+      electrical: "Electrical",
+      communication_media: "Communication Media",
     }),
     []
   );

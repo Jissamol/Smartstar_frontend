@@ -1,43 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import { FaSignOutAlt, FaUserGraduate, FaBook, FaCalendarAlt, FaClock } from 'react-icons/fa';
+import { FaSignOutAlt, FaBook, FaCalendarAlt, FaClock } from 'react-icons/fa';
 
-const TeacherDashboard = () => {
+const StudentDashboard = () => {
     const navigate = useNavigate();
-    const [teacherName, setTeacherName] = useState('');
+    const [studentName, setStudentName] = useState('');
     const [department, setDepartment] = useState('');
+    const [semester, setSemester] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/teacherslog');
+            navigate('/studentslog');
         } else {
-            // Fetch teacher profile data
-            fetchTeacherProfile();
+            // Fetch student profile data
+            fetchStudentProfile();
         }
     }, [navigate]);
 
-    const fetchTeacherProfile = async () => {
+    const fetchStudentProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:8000/api/teacher/profile/', {
+            const response = await fetch('http://localhost:8000/api/student/profile/', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
             const data = await response.json();
-            setTeacherName(data.username || 'Teacher');
+            setStudentName(data.user.username || 'Student');
             setDepartment(data.department || 'Department');
+            setSemester(data.semester || 'Semester');
         } catch (error) {
-            console.error('Error fetching teacher profile:', error);
+            console.error('Error fetching student profile:', error);
         }
     };
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userRole');
-        navigate('/teacherslog');
+        navigate('/studentslog');
     };
 
     const StatCard = ({ icon: Icon, title, value, color }) => (
@@ -54,18 +55,13 @@ const TeacherDashboard = () => {
 
     return (
         <div style={containerStyle}>
-            {/* Sidebar */}
-            <div style={sidebarContainerStyle}>
-                <Sidebar />
-            </div>
-
             {/* Main Content Area */}
             <div style={mainContentStyle}>
                 {/* Header */}
                 <div style={headerStyle}>
                     <div style={headerLeftStyle}>
-                        <h1 style={titleStyle}>Welcome, {teacherName}</h1>
-                        <p style={subtitleStyle}>{department}</p>
+                        <h1 style={titleStyle}>Welcome, {studentName}</h1>
+                        <p style={subtitleStyle}>{department} - Semester {semester}</p>
                     </div>
                     <button 
                         onClick={handleLogout}
@@ -81,28 +77,22 @@ const TeacherDashboard = () => {
                     {/* Stats Grid */}
                     <div style={statsGridStyle}>
                         <StatCard 
-                            icon={FaUserGraduate}
-                            title="Total Students"
-                            value="48"
-                            color="#4f46e5"
-                        />
-                        <StatCard 
                             icon={FaBook}
-                            title="Subjects"
-                            value="3"
-                            color="#059669"
+                            title="Current Subjects"
+                            value="5"
+                            color="#4f46e5"
                         />
                         <StatCard 
                             icon={FaCalendarAlt}
                             title="Classes Today"
-                            value="5"
-                            color="#db2777"
+                            value="3"
+                            color="#059669"
                         />
                         <StatCard 
                             icon={FaClock}
-                            title="Hours"
-                            value="24"
-                            color="#d97706"
+                            title="Attendance"
+                            value="85%"
+                            color="#db2777"
                         />
                     </div>
 
@@ -112,18 +102,18 @@ const TeacherDashboard = () => {
                         <div style={activityListStyle}>
                             <div style={activityItemStyle}>
                                 <div style={activityDotStyle}></div>
-                                <p>Added new student to Computer Science department</p>
-                                <span style={activityTimeStyle}>2 hours ago</span>
+                                <p>Mathematics class at 10:00 AM</p>
+                                <span style={activityTimeStyle}>Today</span>
                             </div>
                             <div style={activityItemStyle}>
                                 <div style={activityDotStyle}></div>
-                                <p>Updated profile information</p>
-                                <span style={activityTimeStyle}>5 hours ago</span>
+                                <p>Physics assignment submitted</p>
+                                <span style={activityTimeStyle}>Yesterday</span>
                             </div>
                             <div style={activityItemStyle}>
                                 <div style={activityDotStyle}></div>
-                                <p>Reviewed student assignments</p>
-                                <span style={activityTimeStyle}>1 day ago</span>
+                                <p>Chemistry lab scheduled</p>
+                                <span style={activityTimeStyle}>2 days ago</span>
                             </div>
                         </div>
                     </div>
@@ -138,13 +128,6 @@ const containerStyle = {
     display: 'flex',
     minHeight: '100vh',
     backgroundColor: '#f3f4f6'
-};
-
-const sidebarContainerStyle = {
-    width: '250px',
-    backgroundColor: '#1e293b',
-    color: 'white',
-    boxShadow: '4px 0 6px rgba(0, 0, 0, 0.1)'
 };
 
 const mainContentStyle = {
@@ -295,4 +278,4 @@ const activityTimeStyle = {
     marginLeft: 'auto'
 };
 
-export default TeacherDashboard;
+export default StudentDashboard; 
